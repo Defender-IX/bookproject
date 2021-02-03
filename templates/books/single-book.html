@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ book.name }}{% endblock %}
+
+{% block content %}
+
+<section id="single-book">
+  <div class="container">
+
+    <h1>{{ book.name }}</h1>
+
+    <div class="single-book-chapters">
+      <h3>Оглавление</h3>
+      <ul>
+        {% for chapter in chapters %}
+          <li><a href="{{ chapter.get_absolute_url }}">
+            {% if chapter.number %}{{ chapter.number }}{% endif %} - {% if chapter.title %}{{ chapter.title }}{% endif %}
+          </a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <a href="{{ chapters.0.get_absolute_url }}" class="btn">Начать читать</a>
+
+  </div>
+</section>
+
+{% endblock %}

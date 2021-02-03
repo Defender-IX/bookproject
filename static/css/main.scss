@@ -1,0 +1,250 @@
+@import 'global';
+
+.container {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.btn {
+  display: block;
+  padding: 14px 30px;
+  color: #fff;
+  background: $accent;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: .2s ease-in;
+  width: max-content;
+  &:hover {
+    border-radius: 10px;
+    box-shadow: 0 3px 5px rgba($accent, .5);
+  }
+}
+
+.btn-2 {
+  padding: 16px 30px;
+  background: #EBD2BD;
+  border-radius: 5px;
+  line-height: 1em;
+}
+
+.to-top {
+  position: fixed;
+  right: 10%;
+  top: 61%;
+  width: 48px;
+  height: 48px;
+  background: #EBD2BD;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  transition: .2s;
+  opacity: 0;
+  transform: scale(.4);
+  cursor: pointer;
+  &.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  i {
+    font-size: 30px;
+  }
+}
+
+#header {
+  position: sticky;
+  z-index: 30;
+  padding: 20px 0;
+  top: 0;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(#000, .1);
+  .container {
+    display: flex;
+    align-items: center;
+  }
+  & .header-logo {
+    margin-right: 140px;
+    font-weight: 700;
+  }
+  & .header-menu {
+    display: flex;
+    align-items: center;
+    li {
+      margin-right: 40px;
+    }
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.catalog-books {
+  margin: 40px 0;
+  position: relative;
+  display: flex;
+  width: 100%;
+  & .catalog-book {
+    width: calc(20% - 20px);
+    margin-right: 20px;
+    &-img {
+      display: block;
+      width: 100%;
+      height: 260px;
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        object-fit: cover;
+      }
+    }
+    &-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    &-author {
+      font-size: 12px;
+      color: #b1b1b1;
+    }
+  }
+}
+
+#book-chapter {
+  padding-top: 100px;
+  & .book-chapter-header {
+    max-width: 800px;
+    margin: 0 0 50px calc((100% - 800px) / 2);
+    text-align: center;
+    transition: .2s;
+    &.active {
+      margin: 0 0 50px 0;
+    }
+  }
+  h1 {
+    font-size: 24px;
+    font-family: 'Spectral', serif;
+  }
+  h4 {
+    font-size: 14px;
+    color: $grey;
+    margin-bottom: 15px;
+  }
+  & .book-chapter-content {
+    max-width: 800px;
+    margin-left: calc((100% - 800px) / 2);
+    font-size: 18px;
+    line-height: 1.8em;
+    transition: .2s;
+    text-align: justify;
+    &.active {
+      margin: 0;
+    }
+  }
+  & .book-chapter-pagin {
+    padding: 80px 0 40px;
+    display: flex;
+    .next {
+      margin-left: auto;
+    }
+  }
+  & .book-chapter-sidebar-toggle {
+    position: fixed;
+    right: 4%;
+    top: 40%;
+    font-size: 16px;
+    transform: rotate(90deg);
+    cursor: pointer;
+    transition: .2s;
+    &.active {
+      transform: scale(.4) rotate(90deg);
+      opacity: 0;
+    }
+  }
+  & .book-chapter-sidebar {
+    position: fixed;
+    top: 160px;
+    right: 10%;
+    max-width: 255px;
+    opacity: 1;
+    right: -300px;
+    transition: .2s;
+    &.active {
+      opacity: 1;
+      right: 10%;
+    }
+    &-widget {
+      padding: 24px 17px;
+      background: #FFEFE1;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      h3 {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 15px;
+      }
+      h4 {
+        font-size: 16px;
+        color: #000;
+        margin-top: 20px;
+      }
+      ul {
+        li { margin-bottom: 12px; }
+        a { font-size: 14px; }
+      }
+    }
+  }
+  & .book-chapter-sidebar-bottom {
+    display: flex;
+    justify-content: space-between;
+    .to-top {
+      position: static;
+      margin-left: 10px;
+    }
+    .close {
+      height: 48px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+  & .book-chapter-sidebar-filters {
+    .filter-color {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #000;
+      margin-right: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      &.active {
+        box-shadow: 0px 0px 0px 2px rgba(#000, .25);
+      }
+      &.braun { background: #F4E0CF; }
+      &.white { background: #fff; }
+      &.dark { background: #A0A0A0; }
+    }
+    input[type=number] {
+      border: 2px solid #000;
+      display: inline-block;
+      margin-right: 10px;
+      background: #fff;
+      font-size: 16px;
+      max-width: 56px;
+      border-radius: 5px;
+      text-align: right;
+      color: #000;
+      height: 30px;
+    }
+  }
+}
+
+@import 'media';

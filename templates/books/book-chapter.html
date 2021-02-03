@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bodyclass %}class="book-chapter-body"{% endblock %}
+
+{% block content %}
+
+  <section id="book-chapter">
+    <div class="container book-chapters-mobile">
+
+      <div class="book-chapter-header">
+        <h4>
+          <a href="{{ chapter.book.author.get_absolute_url }}">{{ chapter.book.author }}</a> —
+          <a href="{{ chapter.book.get_absolute_url }}">{{ chapter.book }}</a>
+        </h4>
+        <h1>{{ chapter.number }} {{ chapter.title }}</h1>
+      </div>
+
+      <div class="book-chapter-content">
+        <p>{{ chapter.text }}</p>
+      </div>
+
+    </div>
+
+    <div class="container">
+      <div class="book-chapter-pagin">
+        {% if prev_chapter %}
+          <a class="prev btn-2" href="{{ prev_chapter.get_absolute_url }}">Предыдущая глава</a>
+        {% endif %}
+
+        {% if next_chapter %}
+          <a class="next btn-2" href="{{ next_chapter.get_absolute_url }}">Следующая глава</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="book-chapter-sidebar-toggle btn-2">Оглавление и фильтры</div>
+
+    <div class="book-chapter-sidebar">
+      <div class="book-chapter-sidebar-widget">
+        <h3>Оглавление</h3>
+        <ul>
+          {% for chp in chapters %}
+            <li>
+              {% if chapter.title == chp.title %}
+              <strong>
+                <a href="{{ chp.get_absolute_url }}">{{ chp.number }}{% if chp.title %} - {{ chp.title }}{% endif %}</a>
+              </strong>
+              {% else %}
+              <a href="{{ chp.get_absolute_url }}">{{ chp.number }}{% if chp.title %} - {{ chp.title }}{% endif %}</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="book-chapter-sidebar-widget">
+        <h3>Фильтры</h3>
+        <form action="" class="book-chapter-sidebar-filters">
+          <h4>Цвет</h4>
+          <span class="filter-color braun active"></span>
+          <span class="filter-color white"></span>
+          <span class="filter-color dark"></span>
+          <h4>Шрифт</h4>
+          <input id="filter-font-size" type="number" name="filter-font-size" value="18" min="12" max="24">
+        </form>
+      </div>
+      <div class="book-chapter-sidebar-bottom">
+        <div class="close btn-2">Скрыть фильтры</div>
+        <div class="to-top"><i class="ph-arrow-circle-up"></i></div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="to-top to-top2"><i class="ph-arrow-circle-up"></i></div>
+
+{% endblock %}
+
+{% block jquery %}<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>{% endblock %}
+{% block scripts %}<script type="text/javascript" src="{% static 'js/jquery.columnizer.js' %}"></script>
+{% endblock %}

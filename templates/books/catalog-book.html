@@ -1,0 +1,9 @@
+<article id="book-{{ book.id }}" class="catalog-book">
+  <a href="{{ book.get_absolute_url }}" class="catalog-book-img">
+    {% if book.image %}
+      <img src="{{ book.image.url  }}" alt="{{ book.name }}-{{ book.author }}">
+    {% endif %}
+  </a>
+  <h3 class="catalog-book-title"><a href="{{ book.get_absolute_url }}">{{ book.name }}</a></h3>
+  <h4 class="catalog-book-author"><a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a></h4>
+</article>

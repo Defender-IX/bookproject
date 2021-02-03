@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ author.name }}{% endblock %}
+
+{% block content %}
+
+  <section id="single-author">
+    <div class="container">
+
+      <h1>{{ author.name }}</h1>
+
+      <div class="catalog-books">
+        {% for book in books %}
+
+          {% include 'books/catalog-book.html' %}
+
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+
+{% endblock %}

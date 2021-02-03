@@ -17,9 +17,18 @@
         margin-bottom: 10px;
       }
     }
+    & .book-chapters-mobile {
+      max-width: 100% !important;
+      padding: 0 15px;
+    }
     & .book-chapter-content {
       margin-left: 0;
       font-size: 14px !important;
+      max-width: none;
+      column-width: 100vw;
+      width: auto;
+      max-height: 100vh;
+      position: relative;
     }
     & .book-chapter-sidebar-toggle {
       display: none;

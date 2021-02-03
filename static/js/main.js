@@ -12,6 +12,21 @@ jQuery(document).ready(function($) {
   //     });
   //   });
   // }
+  let tr = 0;
+  console.log(window_width);
+  $('body').on('click', function(e) {
+    if (e.clientX < window_width / 5) {
+      // console.log('left');
+      tr += window_width - 15;
+      $('.book-chapter-content').css('transform', 'translateX(' + tr + 'px)');
+    } else if (e.clientX > window_width / 5 * 4) {
+      // console.log('right');
+      tr -= window_width - 15;
+      $('.book-chapter-content').css('transform', 'translateX(' + tr + 'px)');
+    } else {
+      // console.log('center');
+    }
+  });
 
   if (window_width < 800) {
     $('.book-chapter-pagin-menu-item.chapters').on('click', function() {

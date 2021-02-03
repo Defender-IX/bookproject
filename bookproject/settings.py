@@ -19,7 +19,7 @@ SECRET_KEY = 'ictbtlp4pty3q&wcj4tw&jm$_=7s*(+g16_@b^@_(zlq4uq)-z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['defenderbooks.herokuapp.com']
 
 
 # Application definition
@@ -124,4 +124,4 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = MEDIA_DIR
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())

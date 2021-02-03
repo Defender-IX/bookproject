@@ -23,6 +23,17 @@
     </div>
 
     <div class="container">
+      <div class="book-chapter-pagin-menu">
+        {% if prev_chapter %}
+          <a class="book-chapter-pagin-menu-item" href="{{ prev_chapter.get_absolute_url }}"><i class="ph-arrow-circle-left"></i></a>
+        {% endif %}
+        <a class="book-chapter-pagin-menu-item chapters"><i class="ph-list-bullets"></i></a>
+        <a class="book-chapter-pagin-menu-item filters"><i class="ph-funnel"></i></a>
+        {% if next_chapter %}
+          <a class="book-chapter-pagin-menu-item" href="{{ next_chapter.get_absolute_url }}"><i class="ph-arrow-circle-right"></i></a>
+        {% endif %}
+
+      </div>
       <div class="book-chapter-pagin">
         {% if prev_chapter %}
           <a class="prev btn-2" href="{{ prev_chapter.get_absolute_url }}">Предыдущая глава</a>
@@ -34,10 +45,25 @@
       </div>
     </div>
 
-    <div class="book-chapter-sidebar-toggle btn-2">Оглавление и фильтры</div>
-
-    <div class="book-chapter-sidebar">
-      <div class="book-chapter-sidebar-widget">
+    <!-- <div class="book-chapter-sidebar-toggle btn-2">Оглавление и фильтры</div> -->
+    <div class="book-chapter-sidebar-widget-chapters">
+      <h3>Оглавление</h3>
+      <ul>
+        {% for chp in chapters %}
+          <li>
+            {% if chapter.title == chp.title %}
+            <strong>
+              <a href="{{ chp.get_absolute_url }}">{{ chp.number }}{% if chp.title %} - {{ chp.title }}{% endif %}</a>
+            </strong>
+            {% else %}
+            <a href="{{ chp.get_absolute_url }}">{{ chp.number }}{% if chp.title %} - {{ chp.title }}{% endif %}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- <div class="book-chapter-sidebar">
+      <div class="book-chapter-sidebar-widget book-chapter-sidebar-widget-chapters">
         <h3>Оглавление</h3>
         <ul>
           {% for chp in chapters %}
@@ -68,7 +94,7 @@
         <div class="close btn-2">Скрыть фильтры</div>
         <div class="to-top"><i class="ph-arrow-circle-up"></i></div>
       </div>
-    </div>
+    </div> -->
 
   </section>
 

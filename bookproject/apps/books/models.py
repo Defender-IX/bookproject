@@ -73,9 +73,9 @@ class Book(models.Model):
 class BookChapter(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name='Книга')
     title = models.CharField(max_length=100, blank=True, verbose_name='Заголовок')
-    number = models.CharField(max_length=5, verbose_name='Номер главы')
+    number = models.CharField(max_length=10, verbose_name='Номер главы')
     text = models.TextField(verbose_name='Текст')
-    slug = models.SlugField(max_length=5, default='', editable=False)
+    slug = models.SlugField(max_length=10, default='', editable=False)
 
     def save(self):
         self.slug = slugify(self.number)

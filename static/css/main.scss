@@ -1,5 +1,7 @@
 @import 'global';
 
+.overflow { overflow: hidden; }
+
 .container {
   max-width: 80%;
   margin: 0 auto;
@@ -182,25 +184,44 @@
       opacity: 1;
       right: 10%;
     }
-    &-widget {
-      padding: 24px 17px;
-      background: #FFEFE1;
-      border-radius: 10px;
-      margin-bottom: 30px;
-      h3 {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 15px;
-      }
-      h4 {
-        font-size: 16px;
-        color: #000;
-        margin-top: 20px;
-      }
-      ul {
-        li { margin-bottom: 12px; }
-        a { font-size: 14px; }
-      }
+  }
+  & .book-chapter-sidebar-widget-chapters {
+    position: fixed;
+    z-index: 20px;
+    top: 0;
+    left: 0;
+    display: none;
+    height: 100vh;
+    overflow: auto;
+    padding-bottom: 70px !important;
+    border-radius: 0 0 15px 15px !important;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    opacity: 1;
+    // transition: .2s;
+    &.active {
+      top: 0;
+      opacity: 1;
+      transition: .2s;
+    }
+  }
+  & .book-chapter-sidebar-widget-chapters, & .book-chapter-sidebar-widget {
+    padding: 24px 17px;
+    background: #FFEFE1;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+    h4 {
+      font-size: 16px;
+      color: #000;
+      margin-top: 20px;
+    }
+    ul {
+      li { margin-bottom: 12px; }
+      a { font-size: 14px; }
     }
   }
   & .book-chapter-sidebar-bottom {

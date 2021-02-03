@@ -3,13 +3,25 @@ jQuery(document).ready(function($) {
   let window_height = $(window).height() - 40;
   let window_width = $(window).width();
 
-  if ( window_width <= 800 ) {
-    $(function(){
-      $('#book-chapter .container').columnize({
-        width : 400,
-        height : window_height,
-        buildOnce: false,
-      });
+  // if ( window_width <= 800 ) {
+  //   $(function(){
+  //     $('#book-chapter .container').columnize({
+  //       width : 400,
+  //       height : window_height,
+  //       buildOnce: false,
+  //     });
+  //   });
+  // }
+
+  if (window_width < 800) {
+    $('.book-chapter-pagin-menu-item.chapters').on('click', function() {
+      $('.book-chapter-sidebar-widget-chapters').slideToggle();
+      $('body').toggleClass('overflow');
+    });
+
+    $('body').on('dblclick', function() {
+      $('.book-chapter-pagin-menu').toggleClass('tap-toggle');
+      $('.to-top').toggleClass('tap-toggle');
     });
   }
 

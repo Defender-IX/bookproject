@@ -1,0 +1,1 @@
+web: gunirorn bookproject.wsgi

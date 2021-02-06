@@ -8,29 +8,30 @@
   <section id="book-chapter">
     <div class="container book-chapters-mobile">
 
-      <div class="book-chapter-header">
-        <h4>
-          <a href="{{ chapter.book.author.get_absolute_url }}">{{ chapter.book.author }}</a> —
-          <a href="{{ chapter.book.get_absolute_url }}">{{ chapter.book }}</a>
-        </h4>
-        <h1>{{ chapter.number }} {{ chapter.title }}</h1>
-      </div>
-
       <div class="book-chapter-content">
+        <div class="book-chapter-header">
+          <h4>
+            <a href="{{ chapter.book.author.get_absolute_url }}">{{ chapter.book.author }}</a> —
+            <a href="{{ chapter.book.get_absolute_url }}">{{ chapter.book }}</a>
+          </h4>
+          <h1>{{ chapter.number }} {{ chapter.title }}</h1>
+        </div>
         <p>{{ chapter.text }}</p>
       </div>
+
+      <div class="book-chapter-page-counts"></div>
 
     </div>
 
     <div class="container">
       <div class="book-chapter-pagin-menu">
         {% if prev_chapter %}
-          <a class="book-chapter-pagin-menu-item" href="{{ prev_chapter.get_absolute_url }}"><i class="ph-arrow-circle-left"></i></a>
+          <a class="book-chapter-pagin-menu-item prev" href="{{ prev_chapter.get_absolute_url }}"><i class="ph-arrow-circle-left"></i></a>
         {% endif %}
         <a class="book-chapter-pagin-menu-item chapters"><i class="ph-list-bullets"></i></a>
         <a class="book-chapter-pagin-menu-item filters"><i class="ph-funnel"></i></a>
         {% if next_chapter %}
-          <a class="book-chapter-pagin-menu-item" href="{{ next_chapter.get_absolute_url }}"><i class="ph-arrow-circle-right"></i></a>
+          <a class="book-chapter-pagin-menu-item next" href="{{ next_chapter.get_absolute_url }}"><i class="ph-arrow-circle-right"></i></a>
         {% endif %}
 
       </div>
@@ -100,8 +101,4 @@
 
   <div class="to-top to-top2"><i class="ph-arrow-circle-up"></i></div>
 
-{% endblock %}
-
-{% block jquery %}<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>{% endblock %}
-{% block scripts %}<script type="text/javascript" src="{% static 'js/jquery.columnizer.js' %}"></script>
 {% endblock %}

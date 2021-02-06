@@ -185,44 +185,77 @@
       right: 10%;
     }
   }
+  & .book-chapter-page-counts {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #acacac;
+  }
   & .book-chapter-sidebar-widget-chapters {
     position: fixed;
     margin: 0 !important;
-    z-index: 20px;
     top: 0;
-    left: 0;
-    display: none;
+    left: -100%;
+    display: block;
+    width: 100%;
     height: 100vh;
     overflow: auto;
     padding-bottom: 70px !important;
     border-radius: 0 0 15px 15px !important;
     box-shadow: 0 0 10px rgba(0,0,0,.3);
-    opacity: 1;
-    // transition: .2s;
+    opacity: 0;
+    transition: .2s;
     &.active {
-      top: 0;
       opacity: 1;
-      transition: .2s;
+      left: 0;
     }
   }
   & .book-chapter-sidebar-widget-chapters, & .book-chapter-sidebar-widget {
     padding: 24px 17px;
-    background: #FFEFE1;
+    background: var(--brain-main);
     border-radius: 10px;
     margin-bottom: 30px;
     h3 {
       font-size: 18px;
       font-weight: 500;
-      margin-bottom: 15px;
+      padding-bottom: 15px;
     }
     h4 {
       font-size: 16px;
       color: #000;
-      margin-top: 20px;
+      padding-top: 20px;
     }
     ul {
-      li { margin-bottom: 12px; }
-      a { font-size: 14px; }
+      li { padding-bottom: 12px; }
+      a {
+        font-size: 14px;
+        display: block;
+        width: 100%;
+        padding: 4px 0;
+        position: relative;
+        z-index: 1;
+        &:before {
+          content: '';
+          position: absolute;
+          display: block;
+          background: var(--brain-light);
+          border-radius: 5px;
+          width: 100%;
+          height: 100%;
+          left: -8px;
+          top: -2px;
+          padding: 2px 8px;
+          box-sizing: content-box;
+          opacity: .5;
+          z-index: -1;
+          transition: .2s;
+        }
+        &:hover:before {
+          opacity: 1;
+        }
+      }
     }
   }
   & .book-chapter-sidebar-bottom {

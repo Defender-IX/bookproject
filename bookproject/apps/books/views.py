@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Book, Author, BookCategory, BookChapter
-from django.utils.text import slugify
 
 # Book
 def catalog(request):
@@ -22,8 +21,17 @@ def book_chapter(request, book_slug, slug):
     book = get_object_or_404(Book, slug=book_slug)
     chapter = get_object_or_404(BookChapter, slug=slug, book=book)
     chapters = BookChapter.objects.filter(book=book)
-    next_chapter = BookChapter.objects.filter(id__gt=chapter.id, book=book).order_by('id').first()
-    prev_chapter = BookChapter.objects.filter(id__lt=chapter.id, book=book).order_by('id').first()
+
+    try:
+        next_chapter = BookChapter.objects.get(id=chapter.id+1)
+    except:
+        next_chapter = ''
+    try:
+        prev_chapter = BookChapter.objects.get(id=chapter.id-1)
+    except:
+        prev_chapter = ''
+    # next_chapter = BookChapter.objects.filter(id__gt=chapter.id, book=book).order_by('id').first()
+    # prev_chapter = BookChapter.objects.filter(id__lt=chapter.id, book=book).order_by('id').first()
 
     context_dict = {
         'chapter': chapter,

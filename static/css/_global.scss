@@ -2,6 +2,11 @@ $accent: #e36536;
 $braun: #f4e0cf;
 $grey: #afafaf;
 
+:root {
+  --brain-main: #f4e0cf;
+  --brain-light: #ffefe1;
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -22,21 +27,19 @@ body {
   line-height: 1.4em;
   scroll-behavior: smooth;
   &.book-chapter-body {
-    background: $braun;
+    background: var(--brain-main);
   }
 }
 
 *, *:after, *::before {
   box-sizing: inherit;
   outline: none !important;
+   -webkit-tap-highlight-color: transparent;
 }
 
 a {
   text-decoration: none;
   color: inherit;
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 button {

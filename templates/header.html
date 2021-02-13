@@ -1,12 +1,25 @@
 <header id="header">
   <div class="container">
 
-    <a href="" class="header-logo">Читай онлайн!</a>
     <nav class="header-nav">
       <ul class="header-menu">
-        <li><a href="{% url 'books:catalog' %}">Каталог книг</a></li>
+        <li><a href="{% url 'books:catalog' %}">Книги</a></li>
+      </ul>
+    </nav>
+    <a href="{% url 'books:catalog' %}" class="header-logo">Читай онлайн!</a>
+    <nav class="header-nav">
+      <ul class="header-menu">
+        <li><a href="{% url 'books:catalog_author' %}">Авторы</a></li>
       </ul>
     </nav>
 
+    <div class="header-user">
+      <span class="header-user-login">Войти</span>
+      <span class="header-user-register">Регистрация</span>
+    </div>
+
   </div>
 </header>
+
+{% include 'login.html' %}
+{% include 'register.html' %}

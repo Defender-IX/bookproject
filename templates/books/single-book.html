@@ -8,11 +8,25 @@
 <section id="single-book">
   <div class="container">
 
-    <h1>{{ book.name }}</h1>
+    <div class="d-flex">
+      {% if book.image %}
+        <div class="single-book-image">
+          <img src="{{ book.image.url }}" alt="{{ book.name }} image">
+        </div>
+      {% endif %}
+      <div class="single-book-content">
+        <h1>{{ book.name }}</h1>
+        <a href="{{ book.author.get_absolute_url }}" class="single-book-author">{{ book.author }}</a>
+        <p class="single-book-text">{{ book.excerpt }}</p>
+        <a href="{{ chapters.0.get_absolute_url }}" class="btn">Начать читать</a>
+      </div>
+    </div>
 
+    {% if chapters|length > 1 %}
     <div class="single-book-chapters">
       <h3>Оглавление</h3>
       <ul>
+
         {% for chapter in chapters %}
           <li><a href="{{ chapter.get_absolute_url }}">
             {% if chapter.number %}{{ chapter.number }}{% endif %} - {% if chapter.title %}{{ chapter.title }}{% endif %}
@@ -20,8 +34,7 @@
         {% endfor %}
       </ul>
     </div>
-
-    <a href="{{ chapters.0.get_absolute_url }}" class="btn">Начать читать</a>
+    {% endif %}
 
   </div>
 </section>

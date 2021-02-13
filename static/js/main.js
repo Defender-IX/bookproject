@@ -3,6 +3,146 @@ jQuery(document).ready(function($) {
   let window_height = $(window).height();
   let window_width = $(window).width();
 
+  // MODAL
+
+  $('.modal').append('<div class="modal-bg"></div>')
+  $('.modal .modal-bg').on('click', function() {
+    $(this).parent().removeClass('active');
+  })
+
+  $('.header-user-register').on('click', function() {
+    $('.modal-register').addClass('active');
+  })
+
+  $('.header-user-login').on('click', function() {
+    $('.modal-login').addClass('active');
+  })
+
+  // FORMS
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
+  const csrf = getCookie('csrftoken');
+  // let csrf = $('input[name=csrfmiddlewaretoken]').val();
+
+  function checkField(field_error, name_field) {
+    el = $('.form-group input[name='+name_field+']');
+    if ( el.val().length > 0 ) {
+      if ( field_error ) {
+        el.parents('.form-group').removeClass('success');
+        el.parents('.form-group').addClass('error');
+        el.parent().find($('p.error')).addClass('active');
+        el.parent().find($('p.error')).text(field_error);
+      } else {
+        el.parents('.form-group').addClass('success');
+        el.parents('.form-group').removeClass('error');
+        el.parent().find($('p.error')).removeClass('active');
+      }
+    }
+  }
+
+  $('form').submit(function(e) {
+    e.preventDefault();
+    // let form_data = $(this).serialize();
+    $.ajax({
+        type: 'POST',
+        url: '/validate-register-form/',
+        // data: form_data,
+        data: {
+          csrfmiddlewaretoken: csrf,
+          username: $('.register-form-container .form-group input[name=username]').val(),
+          email: $('.register-form-container .form-group input[name=email]').val(),
+          password1: $('.register-form-container .form-group input[name=password1]').val(),
+          password2: $('.register-form-container .form-group input[name=password2]').val(),
+        },
+        headers: { "X-CSRFToken": getCookie("csrftoken") },
+        success: function(response) {
+          if ( response.success ) {
+            $('.register-form-container form').trigger("reset");
+            $('.register-error').removeClass('active');
+            $('.register-success').addClass('active');
+            $('.register-form-container .form-group').removeClass('success').removeClass('focus').removeClass('error');
+            setTimeout(function() {
+              location.reload();
+            }, 1000);
+          } else {
+            $('.register-success').removeClass('active');
+            $('.register-error').addClass('active');
+          }
+        },
+        error: function() {
+          $('.register-success').removeClass('active');
+          $('.register-error').addClass('active');
+          console.log('total error');
+        }
+    });
+    return false;
+  });
+
+  $('.register-form-container .form-group input').on('keyup', function(e) {
+
+    if (e.target.value.length > 0) {
+      $.ajax({
+          type: 'POST',
+          url: '/validate-register-fields/',
+          // data: form_data,
+          data: {
+            csrfmiddlewaretoken: csrf,
+            username: $('.register-form-container .form-group input[name=username]').val(),
+            email: $('.register-form-container .form-group input[name=email]').val(),
+            password1: $('.register-form-container .form-group input[name=password1]').val(),
+            password2: $('.register-form-container .form-group input[name=password2]').val(),
+          },
+          headers: { "X-CSRFToken": getCookie("csrftoken") },
+          success: function(response) {
+            checkField(response.username_error, 'username');
+            checkField(response.email_error, 'email');
+            checkField(response.password1_error, 'password1');
+            checkField(response.password2_error, 'password2');
+          },
+          error: function(response) {
+            // console.log(response);
+          }
+      });
+      return false;
+    } else {
+      $(this).parents('.form-group').removeClass('success').removeClass('error');
+    }
+
+  });
+
+
+  $('.form-group input').filter(function() {
+    return $(this).is(':focus') || $(this).val()
+  }).parents('.form-group').addClass('focus');
+
+  $('.form-group input').filter(function() {
+    return !$(this).is(':focus') || !$(this).val()
+  }).parents('.form-group').removeClass('focus');
+
+  $('.form-group input').focusin(function(){
+    $(this).parents('.form-group').addClass('focus');
+  });
+  $('.form-group input').focusout(function(){
+    if ( !$(this).val() ) {
+      $(this).parents('.form-group').removeClass('focus');
+    }
+  });
+
+
   // BOOK CHAPTER ----------------------------------------
 
   if (window_width < 800) {
@@ -16,6 +156,7 @@ jQuery(document).ready(function($) {
     $('.book-chapter-pagin-menu-item.chapters').on('click', function() {
       $('.book-chapter-sidebar-widget-chapters').toggleClass('active');
       $('body').toggleClass('overflow');
+      $('.book-chapter-body #header').removeClass('tap-toggle');
     });
 
     $('.book-chapter-page-counts').html( 'Осталось: ' + pages );
@@ -58,16 +199,18 @@ jQuery(document).ready(function($) {
 
         } else {
           // center
-          if ( $('.book-chapter-pagin-menu').hasClass('tap-toggle') ) {
+          if ( $('.book-chapter-pagin-menu').hasClass('tap-toggle') || $('.book-chapter-body #header').hasClass('tap-toggle') ) {
 
-            if ( $(e.target).closest('.book-chapter-pagin-menu').length || $('.book-chapter-sidebar-widget-chapters').hasClass('active') ) {
+            if ( $(e.target).closest('.book-chapter-pagin-menu').length && $('.book-chapter-sidebar-widget-chapters').hasClass('active') && $(e.target).closest('.book-chapter-body #header').length ) {
                 return;
             }
 
             $('.book-chapter-pagin-menu').removeClass('tap-toggle');
             $('.to-top').removeClass('tap-toggle');
+            $('.book-chapter-body #header').removeClass('tap-toggle')
 
           } else {
+            $('.book-chapter-body #header').addClass('tap-toggle');
             $('.book-chapter-pagin-menu').addClass('tap-toggle');
             $('.to-top').addClass('tap-toggle');
           }
